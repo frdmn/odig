@@ -8,6 +8,7 @@
 
 hostname=${1}
 i=1
+mx=0
 
 #####
 # DO NOT EDIT BELOW
@@ -16,6 +17,10 @@ i=1
 # Usage function
 usage(){
 	echo "Usage: $0 <hostname>"
+	echo ""
+	echo "options:"
+    echo "-h 	show help"
+    echo "-m 	lookup MX records"
 	exit 1
 }
 
@@ -30,6 +35,22 @@ isip() {
    return $ret
 }
 
+# Get all passed arguments
+OPTIND=1
+while getopts "h?m" opt; do
+    case "$opt" in
+        h|\?)
+            usage
+            ;;
+        m)  mx=1
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Pass arguments to varibale
+hostname=$@
+
 # Check if argument is given
 if [ -z "${hostname}" ]
 then
@@ -37,10 +58,17 @@ then
 	usage
 fi
 
-# Store the DNS results
-servers=$(dig +short ${hostname})
-
-echo "${hostname} returned the following DNS records:"
+# Check if mx switch is set
+if [ "$mx" == 1 ]
+then
+	# Store the MX results
+	servers=$(dig mx +short ${hostname}| awk '{ print $2 }')
+	echo "${hostname} returned the following MX records:"
+else
+	# Store the DNS results
+	servers=$(dig +short ${hostname})
+	echo "${hostname} returned the following DNS records:"
+fi
 
 # For each resulted server 
 for server in ${servers}
@@ -55,12 +83,13 @@ do
 	    # Check if PTR is not empty
 	    if [ -z "${ptr}" ]
 	    then
-	    	echo "   Error: No PTR set for ${server}"
+	    	echo "   -> Error: No PTR set for ${server}"
 	    else
-	    	echo "   corresponding PTR: ${ptr}"
+	    	echo "   -> resolved PTR: ${ptr}"
 	    fi
 	else 
-	    echo "$i. returned hostname (CNAME): ${server} -> skip"
+	    echo "$i. returned hostname (CNAME): ${server}"
+	    [ "$mx" == 1 ] && echo "   -> resolved IP: $(dig +short ${server})"
 	fi
 
 	# Count
