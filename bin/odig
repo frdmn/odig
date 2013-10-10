@@ -90,6 +90,7 @@ do
 	else 
 	    echo "$i. returned hostname (CNAME): ${server}"
 	    [ "$mx" == 1 ] && echo "   -> resolved IP: $(dig +short ${server})"
+	    [ "$mx" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
 	fi
 
 	# Count
