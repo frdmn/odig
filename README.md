@@ -7,7 +7,7 @@ A simple Bash script to lookup a hostname and the PTR record of the given IP add
 
     cd /usr/local/src
     git clone git://github.com/frdmn/circular-dig.git
-    ln -s /usr/local/src/circular-dig/bin/odig /usr/bin/odig
+    ln -s /usr/local/src/circular-dig/odig /usr/bin/odig
     sudo chmod +x /usr/bin/odig
 
 # Usage
