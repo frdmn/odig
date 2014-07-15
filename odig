@@ -16,7 +16,7 @@ mx=0
 
 # Usage function
 usage(){
-	echo "Usage: $0 <hostname>"
+	echo "Usage: ${0} <hostname>"
 	echo ""
 	echo "options:"
     echo "-h 	show help"
@@ -26,19 +26,19 @@ usage(){
 
 # Check for IP function
 isip() {
-   if [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
+   if [[ ${1} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
    then
       ret=0
    else
       ret=1
    fi
-   return $ret
+   return ${ret}
 }
 
 # Get all passed arguments
 OPTIND=1
 while getopts "h?m" opt; do
-    case "$opt" in
+    case "${opt}" in
         h|\?)
             usage
             ;;
@@ -49,7 +49,7 @@ done
 shift $((OPTIND-1))
 
 # Pass arguments to varibale
-hostname=$@
+hostname=${@}
 
 # Check if argument is given
 if [ -z "${hostname}" ]
@@ -59,7 +59,7 @@ then
 fi
 
 # Check if mx switch is set
-if [ "$mx" == 1 ]
+if [ "${mx}" == 1 ]
 then
 	# Store the MX results
 	servers=$(dig mx +short ${hostname}| awk '{ print $2 }')
@@ -75,7 +75,7 @@ for server in ${servers}
 do
 	if isip ${server};
 	then 
-	    echo "$i. returned IP: ${server}"
+	    echo "${i}. returned IP: ${server}"
 
 	    # Lookup PTR
 	    ptr=$(dig +short -x ${server})
@@ -88,9 +88,9 @@ do
 	    	echo "   -> resolved PTR: ${ptr}"
 	    fi
 	else 
-	    echo "$i. returned hostname (CNAME): ${server}"
-	    [ "$mx" == 1 ] && echo "   -> resolved IP: $(dig +short ${server}| head -1)"
-	    [ "$mx" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
+	    echo "${i}. returned hostname (CNAME): ${server}"
+	    [ "${mx}" == 1 ] && echo "   -> resolved IP: $(dig +short ${server}| head -1)"
+	    [ "${mx}" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
 	fi
 
 	# Count
