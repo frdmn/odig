@@ -1,18 +1,18 @@
-Circular dig (odig)
-===================
+# circular-dig
+
+[![Current tag](http://img.shields.io/github/tag/frdmn/circular-dig.svg)](https://github.com/frdmn/circular-dig/tags) [![Repository issues](http://issuestats.com/github/frdmn/circular-dig/badge/issue)](http://issuestats.com/github/frdmn/circular-dig) [![Flattr this repository](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=frdmn&url=https://github.com/frdmn/circular-dig)
 
 A simple Bash script to lookup a hostname and the PTR record of the given IP address at a stroke.
 
-# Installation
+## Installation
 
     cd /usr/local/src
     git clone git://github.com/frdmn/circular-dig.git
-    ln -s /usr/local/src/circular-dig/odig /usr/bin/odig
-    sudo chmod +x /usr/bin/odig
+    ln -s /usr/local/src/circular-dig/odig /usr/local/bin/odig
 
-# Usage
+## Usage
 
-### Lookup A/CNAMES and reverse lookup them
+#### Lookup A/CNAMES and reverse lookup them
 
     $ odig frd.mn
     frd.mn returned the following DNS records:
@@ -36,7 +36,7 @@ A simple Bash script to lookup a hostname and the PTR record of the given IP add
 
 ---
 
-### Lookup MX records and reverse lookup them
+#### Lookup MX records and reverse lookup them
 
     $ odig -m google.de
     google.com returned the following MX records:
@@ -54,6 +54,20 @@ A simple Bash script to lookup a hostname and the PTR record of the given IP add
        -> resolved PTR: fa-in-f26.1e100.net.
     5. returned hostname (CNAME): alt1.aspmx.l.google.com.
        -> resolved IP: 173.194.71.26
-       -> resolved PTR: lb-in-f26.1e100.net.## License
+       -> resolved PTR: lb-in-f26.1e100.net.
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch: `git checkout -b feature/my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-new-feature`
+5. Submit a pull request
+
+## Version
+
+1.0.0
+
+## License
 
 [MIT](LICENSE)
