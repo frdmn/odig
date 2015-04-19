@@ -54,4 +54,6 @@ A simple Bash script to lookup a hostname and the PTR record of the given IP add
        -> resolved PTR: fa-in-f26.1e100.net.
     5. returned hostname (CNAME): alt1.aspmx.l.google.com.
        -> resolved IP: 173.194.71.26
-       -> resolved PTR: lb-in-f26.1e100.net.
+       -> resolved PTR: lb-in-f26.1e100.net.## License
+
+[MIT](LICENSE)
