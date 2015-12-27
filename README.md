@@ -1,14 +1,13 @@
-# circular-dig
+# odig
 
-[![Current tag](http://img.shields.io/github/tag/frdmn/circular-dig.svg)](https://github.com/frdmn/circular-dig/tags) [![Repository issues](http://issuestats.com/github/frdmn/circular-dig/badge/issue)](http://issuestats.com/github/frdmn/circular-dig) [![Flattr this repository](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=frdmn&url=https://github.com/frdmn/circular-dig)
+[![Current tag](http://img.shields.io/github/tag/frdmn/odig.svg)](https://github.com/frdmn/odig/tags) [![Repository issues](http://issuestats.com/github/frdmn/odig/badge/issue)](http://issuestats.com/github/frdmn/odig) [![Flattr this repository](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=frdmn&url=https://github.com/frdmn/odig)
 
 A simple Bash script to lookup a hostname and the PTR record of the given IP address at a stroke.
 
 ## Installation
 
-    cd /usr/local/src
-    git clone git://github.com/frdmn/circular-dig.git
-    ln -s /usr/local/src/circular-dig/odig /usr/local/bin/odig
+    brew tap frdmn/homebrew-formulas
+    brew install odig
 
 ## Usage
 
