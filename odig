@@ -52,15 +52,13 @@ shift $((OPTIND-1))
 hostname=${@}
 
 # Check if argument is given
-if [ -z "${hostname}" ]
-then
+if [ -z "${hostname}" ]; then
   echo "Error: no argument given!"
   usage
 fi
 
 # Check if mx switch is set
-if [ "${mx}" == 1 ]
-then
+if [ "${mx}" == 1 ]; then
   # Store the MX results
   servers=$(dig mx +short ${hostname}| awk '{ print $2 }')
   echo "${hostname} returned the following MX records:"
@@ -71,26 +69,23 @@ else
 fi
 
 # For each resulted server
-for server in ${servers}
-do
-  if isip ${server};
-  then
-      echo "${i}. returned IP: ${server}"
+for server in ${servers}; do
+  if isip ${server}; then
+      echo "${i}. returned IP:  ${server}"
 
       # Lookup PTR
       ptr=$(dig +short -x ${server})
 
       # Check if PTR is not empty
-      if [ -z "${ptr}" ]
-      then
-        echo "   -> Error: No PTR set for ${server}"
+      if [ -z "${ptr}" ]; then
+        echo "   resolved PTR: (none)"
       else
-        echo "   -> resolved PTR: ${ptr}"
+        echo "   resolved PTR: ${ptr}"
       fi
   else
       echo "${i}. returned hostname (CNAME): ${server}"
-      [ "${mx}" == 1 ] && echo "   -> resolved IP: $(dig +short ${server}| head -1)"
-      [ "${mx}" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
+      [ "${mx}" == 1 ] && echo "   resolved IP:  $(dig +short ${server}| head -1)"
+      [ "${mx}" == 1 ] && echo "   resolved PTR: $(dig +short -x $(dig +short ${server}))"
   fi
 
   # Count
