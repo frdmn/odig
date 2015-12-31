@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (C) 2013 Jonas Friedmann under the "Do What The Fuck You Want To Public" License 
+# Copyright (C) 2013 Jonas Friedmann under the "Do What The Fuck You Want To Public" License
 # (see ./LICENSE for more informations)
 
 #####
@@ -16,12 +16,12 @@ mx=0
 
 # Usage function
 usage(){
-	echo "Usage: ${0} <hostname>"
-	echo ""
-	echo "options:"
-    echo "-h 	show help"
-    echo "-m 	lookup MX records"
-	exit 1
+  echo "Usage: ${0} <hostname>"
+  echo ""
+  echo "options:"
+    echo "-h  show help"
+    echo "-m  lookup MX records"
+  exit 1
 }
 
 # Check for IP function
@@ -54,45 +54,45 @@ hostname=${@}
 # Check if argument is given
 if [ -z "${hostname}" ]
 then
-	echo "Error: no argument given!"
-	usage
+  echo "Error: no argument given!"
+  usage
 fi
 
 # Check if mx switch is set
 if [ "${mx}" == 1 ]
 then
-	# Store the MX results
-	servers=$(dig mx +short ${hostname}| awk '{ print $2 }')
-	echo "${hostname} returned the following MX records:"
+  # Store the MX results
+  servers=$(dig mx +short ${hostname}| awk '{ print $2 }')
+  echo "${hostname} returned the following MX records:"
 else
-	# Store the DNS results
-	servers=$(dig +short ${hostname})
-	echo "${hostname} returned the following DNS records:"
+  # Store the DNS results
+  servers=$(dig +short ${hostname})
+  echo "${hostname} returned the following DNS records:"
 fi
 
-# For each resulted server 
+# For each resulted server
 for server in ${servers}
 do
-	if isip ${server};
-	then 
-	    echo "${i}. returned IP: ${server}"
+  if isip ${server};
+  then
+      echo "${i}. returned IP: ${server}"
 
-	    # Lookup PTR
-	    ptr=$(dig +short -x ${server})
+      # Lookup PTR
+      ptr=$(dig +short -x ${server})
 
-	    # Check if PTR is not empty
-	    if [ -z "${ptr}" ]
-	    then
-	    	echo "   -> Error: No PTR set for ${server}"
-	    else
-	    	echo "   -> resolved PTR: ${ptr}"
-	    fi
-	else 
-	    echo "${i}. returned hostname (CNAME): ${server}"
-	    [ "${mx}" == 1 ] && echo "   -> resolved IP: $(dig +short ${server}| head -1)"
-	    [ "${mx}" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
-	fi
+      # Check if PTR is not empty
+      if [ -z "${ptr}" ]
+      then
+        echo "   -> Error: No PTR set for ${server}"
+      else
+        echo "   -> resolved PTR: ${ptr}"
+      fi
+  else
+      echo "${i}. returned hostname (CNAME): ${server}"
+      [ "${mx}" == 1 ] && echo "   -> resolved IP: $(dig +short ${server}| head -1)"
+      [ "${mx}" == 1 ] && echo "   -> resolved PTR: $(dig +short -x $(dig +short ${server}))"
+  fi
 
-	# Count
-	i=$((i+1))
+  # Count
+  i=$((i+1))
 done
