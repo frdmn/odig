@@ -61,7 +61,7 @@ A simple Bash script to lookup a hostname and the PTR record of the given IP add
 
 ## Version
 
-1.0.0
+1.0.1
 
 ## License
 
